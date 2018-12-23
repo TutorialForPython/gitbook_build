@@ -26,10 +26,10 @@
            "all": [ "google"]
         },
         "github": {
-            "url": "https://github.com/hsz1273327"
+            "url": "https://github.com/TutorialForPython/TutorialForPython.github.io"
         },
         "github-buttons": {
-            "repo": "hsz1273327/TutorialForPython",
+            "repo": "TutorialForPython/TutorialForPython.github.io",
             "types": ["star","watch","fork"],
             "size": "small"
         },
