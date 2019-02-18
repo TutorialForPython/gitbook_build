@@ -654,6 +654,249 @@ len(set([v11, v22]))
 
 
 
+### 使用[具名元组](https://tutorialforpython.github.io/%E8%AF%AD%E6%B3%95%E7%AF%87/%E5%86%85%E7%BD%AE%E5%AE%B9%E5%99%A8/%E5%BA%8F%E5%88%97%E5%AF%B9%E8%B1%A1.html#%E5%85%B7%E5%90%8D%E5%85%83%E7%BB%84)构建节省空间的类[3.6]
+
+
+在python 3.6后我们可以为类中的字段做类型标注了,利用这一特性,`typing.NamedTuple`新增了一个用法,我们可以继承它用它构造一个节省空间的类,它有`NamedTuple`的所有接口.
+
+同时我们也可以像对其他类定义一样给它添加方法
+
+
+```python
+from typing import NamedTuple
+
+
+class Point(NamedTuple):
+    x: int
+    y: int
+   
+    def __add__(self,other_point):
+        return Point(x=self.x+other_point.x,y=self.y+other_point.y)
+    
+```
+
+
+```python
+p1 = Point(1,2)
+p2 = Point._make([3,2])
+p3 = p1+p2
+p3
+```
+
+
+
+
+    Point(x=4, y=4)
+
+
+
+
+```python
+p3._asdict()
+```
+
+
+
+
+    OrderedDict([('x', 4), ('y', 4)])
+
+
+
+## 数据类[3.7]
+
+
+新加的数据类在标准库[`dataclasses`](https://docs.python.org/3.7/library/dataclasses.html#dataclasses.dataclass)中.它的作用是为类快速定义一些魔术方法,它使用装饰器语法,有两种形式:
+
++ 带参数的装饰器
+
+    ```python
+
+    @dataclass(init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)
+    class Point:
+        x: float
+        y: float = 0.0
+    ```
+    
+    其中参数含义为:
+    + `init` 自动生成`__init__`默认为True,用于给字段赋值
+    + `repr` 自动生成`__repr__`默认为True,用于展示
+    + `eq` 自动生成`__eq__`默认为True,用于判断两个对象是否相等
+    + `order`自动生成 `__gt__`,默认为False,这样就可以判断大小和排序了,实际上也相当于定义了`__lt__`,`__le__`.
+    + `frozen`自动为对对象的修改操作抛出一个异常.默认为`False`,相当于定义了`__setattr__`和`__delattr__`,如果设置为True,相当于这个数据是不可变类型.
+    + `unsafe_hash`根据`eq`和`frozen`的值生成`__hash__`,默认为False,表示`__hash__()=None`
+        + `eq`和`frozen`都是True,自动生成`__hash__`
+        + `eq`为True,`frozen`为False,则`__hash__()=None`
+        + `eq`为False,则`__hash__`继承自其父类,如果其父类为object,那他就会有一个id
+    
+
++ 不带参数的装饰器
+    ```python
+    @dataclass
+    class Point:
+        x: float
+        y: float = 0.0
+    ```
+    
+    相当于是带参数用法全部使用默认值.
+
+
+```python
+from dataclasses import dataclass
+@dataclass
+class Point:
+    x: float
+    y: float = 0.0
+
+p = Point(1.5)
+```
+
+
+```python
+p
+```
+
+
+
+
+    Point(x=1.5, y=0.0)
+
+
+
+### 细化字段定义
+
+dataclasses提供了`dataclasses.field(*, default=MISSING, default_factory=MISSING, repr=True, hash=None, init=True, compare=True, metadata=None)`来作为除了类型注解外的字段定义补充,
+
++ `default`用于定义默认值
++ `default_factory`用于定义一个创建默认值的工厂函数,该工厂函数没有参数
++ `init`: 为True则这个字段强制出现在类的`__init__`参数中
++ `repr`: 为True则这个字段强制出现在`__repr__`结果中.
++ `compare`: 为True则这个字段出现在自动生成的`__gt__`比较重.
++ `hash`: 对应`unsafe_hash`
++ `metadata`: 这可以是映射或None,没有人被视为一个空的dict.此值包含在MappingProxyType()中以使其为只读,并在Field对象上公开.Data Classes根本不使用它,它是作为第三方扩展机制提供的.多个第三方可以各自拥有自己的密钥,以用作元数据中的命名空间.
+
+
+```python
+from dataclasses import field
+@dataclass
+class C:
+    x: int
+    y: int = field(repr=False)
+    z: int = field(repr=False, default=10)
+    t: int = 20
+```
+
+
+```python
+c = C(1,2,4)
+```
+
+
+```python
+c
+```
+
+
+
+
+    C(x=1, t=20)
+
+
+
+
+```python
+c.y
+```
+
+
+
+
+    2
+
+
+
+
+```python
+c.z
+```
+
+
+
+
+    4
+
+
+
+### 转化为其他数据类型
+
++ 转化为字典
+
+`dataclasses`提供了一个方法可以简单的把数据类型的实例转化为字典
+
+`dataclasses.asdict(instance, *, dict_factory=dict)`
+
+
+```python
+from dataclasses import asdict
+
+asdict(c)
+```
+
+
+
+
+    {'x': 1, 'y': 2, 'z': 4, 't': 20}
+
+
+
+
+```python
+from collections import OrderedDict
+asdict(c,dict_factory=OrderedDict)
+```
+
+
+
+
+    OrderedDict([('x', 1), ('y', 2), ('z', 4), ('t', 20)])
+
+
+
++ 转化为元组
+
+`dataclasses`提供了一个方法可以简单的把数据类型的实例转化为元组
+
+`dataclasses.astuple(instance, *, tuple_factory=tuple)`
+
+
+```python
+from dataclasses import astuple
+
+astuple(c)
+```
+
+
+
+
+    (1, 2, 4, 20)
+
+
+
+
+```python
+from collections import namedtuple
+CT = namedtuple("CT",["x","y","z","t"])
+astuple(c,tuple_factory=CT._make)
+```
+
+
+
+
+    CT(x=1, y=2, z=4, t=20)
+
+
+
+更多的用法可以看模块文档.
+
 ## 用于构建,解构,反射对象的工具
 
 ### `__new__`构造运算符
