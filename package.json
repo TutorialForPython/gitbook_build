@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "gitbook-plugin-advanced-emoji": "^0.2.2",
-    "gitbook-plugin-anchor-navigation-ex": "^1.0.13",
+    "gitbook-plugin-anchor-navigation-ex": "^1.0.14",
     "gitbook-plugin-anchors": "^0.7.1",
     "gitbook-plugin-donate": "^1.0.2",
     "gitbook-plugin-expandable-chapters-small": "^0.1.7",
