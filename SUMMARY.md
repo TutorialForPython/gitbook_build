@@ -7,6 +7,7 @@
         * [基于web的可交互运行环境jupyter](工具链篇/交互环境jupyter/基于web的可交互运行环境jupyter.md)
         * [ipython与魔法命令](工具链篇/交互环境jupyter/ipython与魔法命令/ipython与魔法命令.md)
         * [在Ipython_Notebook中的代码调试与优化](工具链篇/交互环境jupyter/在Ipython_Notebook中的代码调试与优化.md)
+        * [在ipykernel中使用异步接口](工具链篇/交互环境jupyter/在ipykernel中使用异步接口.md)
         * [多进程并行计算](工具链篇/交互环境jupyter/多进程并行计算.md)
         * [公开的jupyter_notebook服务](工具链篇/交互环境jupyter/公开的jupyter_notebook服务.md)
         * [notebook格式转换工具](工具链篇/交互环境jupyter/notebook格式转换工具.md)
