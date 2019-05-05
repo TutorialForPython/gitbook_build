@@ -19,17 +19,21 @@ Jupyter 是ipython notebook 脱离ipython项目后的一个独立项目.不同�
 
 Jupyter 现在是独立安装.当然,你依然需要装有python 和 pip.
 
-
-    $pip install jupyter
+```bash
+pip install jupyter
+```
 
 如果你用brew 安装的python3,那么自然的
 
-    $pip3 install jupyter
+```bash
+pip3 install jupyter
+```
 
 ## 运行
 
-    $jupyter notebook
-
+```bash
+jupyter notebook
+```
 
 当然了,没有kernel是没法运行的
 
@@ -45,8 +49,10 @@ Jupyter 现在是独立安装.当然,你依然需要装有python 和 pip.
 ### 通用依赖
 几乎所有kernel都需要`zeromq`和`openssl`这两个库,在mac下他们都可以用brew安装
 
+```bash
 brew install zeromq
 brew install openssl
+```
 
 Jupyter 对于各个语言的支持其实都是通过所谓的核(kernel)来实现的,操作核的命令是`jupyter kernelspec <cmd>`
 
@@ -66,9 +72,10 @@ python的kernel自然依赖于python.
 对于新手来说python2和python3并存本身就是件比较纠结蛋碎的事儿,mac下一般会用homebrew安装两个版本
 (当然也会有人安装其他比如pypy之类,那个咱不管)
 
-    $brew install python
-    $brew install python3
-
+```bash
+brew install python
+brew install python3
+```
 
 如果是这样安装,那python python2 python3对应的便是不同版本的python如下表(可能版本不同有些许不同)
 
@@ -83,16 +90,19 @@ python3|brew 安装的 python3|pip3|/usr/local/lib/python3.4/site-packages
 
 **分别安装ipython,在各自环境下执行**
 
-    $pip install ipython[all]
-    $ipython kernelspec install-self
-    $pip3 install ipython[all]
-    $ipython kernelspec install-self
+```bash
+pip install ipython[all]
+ipython kernelspec install-self
+pip3 install ipython[all]
+ipython kernelspec install-self
+```
 
 #### 测试下
 
 打开Jupyter:
-
-    jupyter notebook
+```bash
+jupyter notebook
+```
 
 可以在*new*看到里面出现*Python 2*和*Python 3*两个可选项
 
@@ -112,15 +122,18 @@ Go有一套完善的开发流程和语言规范,是开发高性能服务的优�
 
 go语言只要用homebrew安装即可
 
-    $brew install go
+```bash
+brew install go
+```
 
 安装好后要在`~/.bash_profile`内添加以下语句(中你的go项目位置)后resource下激活或者重启计算机
-
-    export GOPATH=你的go项目位置#GOPATH可以有多个,用:隔开,其中第一个回存放 go get 命令下载的库文件会放在第一个位置上
-    
+```bash
+export GOPATH=你的go项目位置#GOPATH可以有多个,用:隔开,其中第一个回存放 go get 命令下载的库文件会放在第一个位置上
+```
 如果你希望你的
-    export PATH=${GOPATH//://bin:}/bin:$PATH
-
+```bash
+export PATH=${GOPATH//://bin:}/bin:$PATH
+```
 
 + [gophernotes](https://github.com/gopherdata/gophernotes)
 
@@ -130,24 +143,28 @@ go语言只要用homebrew安装即可
 
 首先它依赖go的一个包叫做goimports,安装的话墙外很简单
 
-    $ go get golang.org/x/tools/cmd/goimports
-    
+```bash
+go get golang.org/x/tools/cmd/goimports
+```
+
 但墙外我们就得用[这个](http://www.golangtc.com/download/package)
 
 它的安装默认是依赖zmq2.2.x,但我想大多数人都装的是zmq4.x吧,所以只要这么安装
 
-
-    $ go get -tags zmq_4_x github.com/gophergala2016/gophernotes
-    
+```bash
+go get -tags zmq_4_x github.com/gophergala2016/gophernotes
+```   
 
 #### 安装kernel
 
-    $mkdir -p ~/.ipython/kernels/gophernotes
-    
+```bash
+mkdir -p ~/.ipython/kernels/gophernotes
+```
+
 然后去你的第一个GOPATH下找到/src/github.com/takluyver/igo/kernel/文件夹,之后复制进.ipython/kernels/gophernotes
 
 
-之后修改其中的`kernel.json`,将其中的`$GOPATH`替换成自己的的gopath
+之后修改其中的`kernel.json`,将其中的`GOPATH`替换成自己的的gopath
 
 
 #### 测试下
@@ -156,126 +173,87 @@ go语言只要用homebrew安装即可
 
 
 
-```python
-:import "fmt"
+```scala
+import "fmt"
 ```
 
 
-```python
+```scala
 word := "world"
 ```
 
 
-
-
-    "world"
-
-
-
-
-
-```python
+```scala
 fmt.Sprintf("hello %s",word)
 ```
 
 
 
 
-    "hello world"
-
+    hello world
 
 
 
 > channels
 
 
-```python
+```scala
 msg := make(chan string)
 ```
 
 
-
-
-    (chan string)(0xc820072060)
-
-
-
-
-
-```python
+```scala
 go func() {msg <- "ping"}()
 ```
 
 
-```python
+```scala
 message := <- msg
 ```
-
-
-
-
-    "ping"
-
-
-
 
 > 例子
 
 
-```python
-:import "fmt"
+```scala
+import "fmt"
 ```
 
 
-```python
+```scala
 fmt.Print("1")
 ```
 
+    1
 
 
 
-    11
-    <nil>
 
+    1 <nil>
 
 
 
 go语言可以看[这篇](https://github.com/astaxie/build-web-application-with-golang/tree/master/zh)来学习
 
-### Javascript(node.js)
-
-#### 安装依赖
-
-+ node.js
-
-    $ brew install node
-
-
+### Javascript(jp-babel)
 
 ### 安装kernel
 
 ```shell
-sudo npm install -g ijavascript
-sudo npm install -g --save-dev babel-preset-es2015
+sudo apt-get install nodejs-legacy npm ipython ipython-notebook
+sudo npm install -g jp-babel
 ```
-
-    
-    
-### 配套设施--balel
-
-babel是一个将ES6标准的js代码转换为可在浏览器中运行的ES5代码的工具.我们可以安装ibabel来使用它
+#### 安装kernel
 
 ```shell
-sudo npm install -g jp-babel@0.0.6
+jp-babel-install
+jp-babel-notebook
 ```
-    
-注意要用老版本,因为新版的babel有bug
 
 #### 测试下
 切换Kernel到JavaScript(Node.js)
 
 
-```python
+```scala
 var Animal = {
     createNew: function(){
         var animal = {}
@@ -321,23 +299,24 @@ a.makeSound()
 
 #### 安装kernel
 
-    install.packages(c('rzmq','repr','IRkernel','IRdisplay'),
-                     repos = c('http://irkernel.github.io/', getOption('repos')))
-    IRkernel::installspec()
-
+```R
+install.packages(c('rzmq','repr','IRkernel','IRdisplay'),
+                 repos = c('http://irkernel.github.io/', getOption('repos')))
+IRkernel::installspec()
+```
 
 #### 测试下
 
 写个身高的简单统计计算吧:
 
 先安装`sca`包:
-
-    > install.packages("sca")
-
+```R
+> install.packages("sca")
+```
 切换Kernel到R:
 
 
-```python
+```scala
 library(sca)
 height=c(1.75,1.82,1.78,1.93,1.77)
 weight=c(69,80,78,96,65)
@@ -396,13 +375,13 @@ Scala应该是后起语言中的新星了,同时支持面向对象编程和函�
 + 解压到一个安全的位置然后运行其中`bin`文件夹下的的`jupyter-scala`脚本自动完成安装
 
 + 用
-
-    $ipython kernelspec list
-
+```bash
+ipython kernelspec list
+```
 查看是否有`scala211`或者`scala210`这样的输出,有的话之后运行
-
-    $ipython console --kernel scala211
-
+```bash
+ipython console --kernel scala211
+```
 这样再用jupyter notebook进入就能找到Scala 2.11了
 
 当然这样如果以后scala升级了那就无法使用最新版本了,解决方法就是自己本地编译
@@ -417,7 +396,7 @@ Scala应该是后起语言中的新星了,同时支持面向对象编程和函�
 
 
 
-```python
+```scala
 def factorial(n:Int):Int = {
     if(n >0) n * factorial(n-1) else 1
 }
@@ -428,7 +407,7 @@ def factorial(n:Int):Int = {
 
 
 
-```python
+```scala
 factorial(5)
 ```
 
@@ -438,67 +417,131 @@ factorial(5)
 
 学习scala可以去[这里](http://twitter.github.io/scala_school/zh_cn/)
 
-### Spark
+### [SparkMagic](https://github.com/jupyter-incubator/sparkmagic)
+
+sparkmagic是一个可以用于连接远端spark,让我们通过jupyternotebook来使用spark的工具.
 
 #### 安装依赖
 
-+ Spark
+[Livy](https://github.com/cloudera/livy)是一个用于为spark提供restful接口的服务,sparkmagic依赖它.安装需要java8,下载解压后
 
-这个不必多介绍,大数据的主流工具之一,安装可以看我[以前的帖子]()
++ 检查环境变量
 
+    ```bash
+    export SPARK_HOME=/usr/lib/spark
 
+    export HADOOP_CONF_DIR=/etc/hadoop/conf
+    ```
+
++ 启动
+
+    ```bash
+    ./bin/livy-server start
+    ```
 
 #### 安装kernel
 
-+ [github上下载源文件](https://github.com/ibm-et/spark-kernel)
++ 安装python模块
 
-+ cd 进入源文件根目录,然后
+```bash
+pip install sparkmagic
+```
 
-      $sbt compile
++ 确认是否开启控件功能
 
-      $sbt pack
+```bash
+jupyter nbextension enable --py --sys-prefix widgetsnbextension 
+```
 
-+ 编译好后执行
++ 找到sparkmagic的安装路径,之后cd到那个路径,执行`jupyter-kernelspec install sparkmagic/kernels/sparkkernel`或者
+`jupyter-kernelspec install sparkmagic/kernels/pysparkkernel`或者`jupyter-kernelspec install sparkmagic/kernels/sparkrkernel`将对应语言的kernel添加到路径.
 
-      $(cd kernel/target/pack && make install)
++ 设置`~/.sparkmagic/config.json`,一般默认就行,如果需要改,可以参考下面的例子
 
-+ 之后你的`home`文件夹下会多出一个`/local`的文件夹,其中`kernel`文件夹存放jar文件
-`bin/sparkkernel`是启动脚本
-
-+ 如果都成功了,那么运行
-
-    ~/local/bin/sparkkernel
-
-应该可以看到kernel运行了
-
-+ 与jupyter链接
-
-    cd ~/.ipython/kernels/
-    mkdir spark
-    touch spark/kernel.json
-
-改写`kernel.json`为
-
+    ```json
     {
-    "display_name": "Spark 1.2.1 (Scala 2.10.4)",
-    "language": "scala",
-    "argv": [
-        "<absolute>/<path>/<to>/local/bin/sparkkernel",
-        "--profile",
-        "{connection_file}"
-     ],
-     "codemirror_mode": "scala"
-    }
+      "kernel_python_credentials" : {
+        "username": "",
+        "password": "",
+        "url": "http://localhost:8998",
+        "auth": "None"
+      },
 
-这样就可以用本地模式测试代码了
+      "kernel_scala_credentials" : {
+        "username": "",
+        "password": "",
+        "url": "http://localhost:8998",
+        "auth": "None"
+      },
+      "kernel_r_credentials": {
+        "username": "",
+        "password": "",
+        "url": "http://localhost:8998"
+      },
+
+      "logging_config": {
+        "version": 1,
+        "formatters": {
+          "magicsFormatter": { 
+            "format": "%(asctime)s\t%(levelname)s\t%(message)s",
+            "datefmt": ""
+          }
+        },
+        "handlers": {
+          "magicsHandler": { 
+            "class": "hdijupyterutils.filehandler.MagicsFileHandler",
+            "formatter": "magicsFormatter",
+            "home_path": "~/.sparkmagic"
+          }
+        },
+        "loggers": {
+          "magicsLogger": { 
+            "handlers": ["magicsHandler"],
+            "level": "DEBUG",
+            "propagate": 0
+          }
+        }
+      },
+
+      "wait_for_idle_timeout_seconds": 15,
+      "livy_session_startup_timeout_seconds": 60,
+
+      "fatal_error_suggestion": "The code failed because of a fatal error:\n\t{}.\n\nSome things to try:\na) Make sure Spark has enough available resources for Jupyter to create a Spark context.\nb) Contact your Jupyter administrator to make sure the Spark magics library is configured correctly.\nc) Restart the kernel.",
+
+      "ignore_ssl_errors": false,
+
+      "session_configs": {
+        "driverMemory": "1000M",
+        "executorCores": 2
+      },
+
+      "use_auto_viz": true,
+      "coerce_dataframe": true,
+      "max_results_sql": 2500,
+      "pyspark_dataframe_encoding": "utf-8",
+
+      "heartbeat_refresh_seconds": 30,
+      "livy_server_heartbeat_timeout_seconds": 0,
+      "heartbeat_retry_seconds": 10,
+
+      "server_extension_default_kernel_name": "pysparkkernel",
+      "custom_headers": {},
+
+      "retry_policy": "configurable",
+      "retry_seconds_to_sleep_list": [0.2, 0.5, 1, 3, 5],
+      "configurable_retry_policy_max_retries": 8
+    }
+    ```
 
 #### 测试下
-切换Kernel到Spark1.6.0
+
+切换Kernel到Pyspark
+
 ##### 写一个用mapreduce求pi的函数:
 
 
 
-```python
+```scala
 val NUM_SAMPLES = 10000
 val count = sc.parallelize(1 to NUM_SAMPLES).map{i =>
     val x = Math.random()
@@ -508,105 +551,21 @@ val count = sc.parallelize(1 to NUM_SAMPLES).map{i =>
 println("Pi is roughly " + 4.0 * count / NUM_SAMPLES)
 ```
 
-    Pi is roughly 3.132
-
-
-##### 写个简单的线性回归:
-
-将[数据](https://github.com/apache/spark/blob/master/data/mllib/ridge-data/lpsa.data)下载到同级目录
+    Starting Spark application
 
 
 
-```python
-import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.mllib.regression.LinearRegressionModel
-import org.apache.spark.mllib.regression.LinearRegressionWithSGD
-import org.apache.spark.mllib.linalg.Vectors
-val data = sc.textFile("source/lpsa.data")
-val parsedData = data.map { line =>
-    val parts = line.split(',')
-    LabeledPoint(parts(0).toDouble, Vectors.dense(parts(1).split(' ').map(_.toDouble)))
-}.cache()
-val numIterations = 100
-val model = LinearRegressionWithSGD.train(parsedData, numIterations)
-// Evaluate model on training examples and compute training error
-val valuesAndPreds = parsedData.map { point =>
-    val prediction = model.predict(point.features)
-    (point.label, prediction)
-}
-val MSE = valuesAndPreds.map{case(v, p) => math.pow((v - p), 2)}.mean()
-println("training Mean Squared Error = " + MSE)
+<table>
+<tr><th>ID</th><th>YARN Application ID</th><th>Kind</th><th>State</th><th>Spark UI</th><th>Driver log</th><th>Current session?</th></tr><tr><td>13</td><td>None</td><td>spark</td><td>idle</td><td></td><td></td><td>✔</td></tr></table>
 
-// Save and load model
-model.save(sc, "myModelPath")
-val sameModel = LinearRegressionModel.load(sc, "myModelPath")
-```
 
-    training Mean Squared Error = 6.207597210613578
+    SparkSession available as 'spark'.
+    NUM_SAMPLES: Int = 10000
+    count: Int = 7746
+    Pi is roughly 3.0984
 
 
 学习spark可以参考[官方文档](http://spark.apache.org/)
-
-### Itorch(lua)
-
-Itorch这是一个lua的机器学习框架,用的虽然不多但既然是学这个的又蛮喜欢lua那就一并写上吧
-
-#### 安装依赖
-
-+ Torch
-
-**安装:**
-
-    curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | bash
-    git clone https://github.com/torch/distro.git ~/torch --recursive
-    cd ~/torch; ./install.sh
-
-这样就可以安装torch到`~/torch`下了
-
-然后在`.bash_profile`中写入
-
-    . /Users/huangsizhe/torch/install/bin/torch-activate
-
-这样就可以使用torch了
-
-**打开torch的交互shell:**
-
-    $th
-
-#### 安装kernel
-
-    git clone https://github.com/facebook/iTorch.git
-    cd iTorch
-    luarocks make
-
-
-#### 测试下
-
-切换Kernel到iTorch:
-
-
-
-```python
-function fib(n)
-    if n < 2 then return 1 end
-    return fib(n - 2) + fib(n - 1)
-end
-```
-
-
-```python
-fib(20)
-```
-
-
-
-
-    10946	
-
-
-
-
-更多的[lua](http://www.yiibai.com/lua/)和[torch](http://torch.ch/docs/getting-started.html#_)教程可以点击对应链接查看
 
 ### C/C++
 
@@ -631,7 +590,7 @@ cling[从这里下载](https://ecsft.cern.ch/dist/cling/current/)对应版本的
 切换Kernel到C++:
 
 
-```python
+```scala
 #include <stdio.h>
 printf("Hello World!\n")
 ```
@@ -641,7 +600,7 @@ printf("Hello World!\n")
 
 
 
-```python
+```scala
 .rawInput
 void test() {//方法
     printf("just a test");
@@ -654,21 +613,21 @@ void test() {//方法
 
 
 
-```python
+```scala
 test()
 ```
 
     just a test
 
 
-```python
+```scala
 auto func = [](int a, int b) -> int { return a+b; };//c++11中的匿名函数
 ```
 
     
 
 
-```python
+```scala
 func(2, 3)
 ```
 
@@ -676,7 +635,7 @@ func(2, 3)
 
 
 
-```python
+```scala
 .rawInput
 class Rectangle {//类
     private:
@@ -702,7 +661,7 @@ class Rectangle {//类
     
 
 
-```python
+```scala
 Rectangle r = Rectangle(5, 4);
 r.area()
 ```
@@ -725,7 +684,7 @@ r.area()
 求斐波那契数列
 
 
-```python
+```scala
 (begin
  (define (factorial n)
   (define (iter product counter)
@@ -746,7 +705,7 @@ r.area()
 
 
 
-```python
+```scala
 (begin
   (define fib
     (lambda (n)
@@ -771,348 +730,6 @@ r.area()
 
 
 
-### haskell
-
-传说中的语言,想了解的可以看一本[萌系的书](http://learnyoua.haskell.sg/)
-
-通过它学习函数式编程几乎是业界共识吧(笑)
-
-#### 安装
-
-ihaskell只能在类unix系统上安装,安装也简单,mac下直接
-
-    git clone http://www.github.com/gibiansky/IHaskell
-    cd IHaskell
-    ./macos-install.sh
-
-然后等就行了
-
-#### 测试下:
-
-Kernel切换到haskell:
-
-
-```python
-import IHaskell.Display
-data Color = Red | Green | Blue
-instance IHaskellDisplay Color where
-  display color = return $ Display [html code]
-    where
-      code = concat ["<div style='font-weight: bold; color:"
-                    , css color
-                    , "'>Look!</div>"]
-      css Red   = "red"
-      css Blue  = "blue"
-      css Green = "green"
-```
-
-
-```python
-Red
-Green
-Blue
-```
-
-
-<style>/*
-Custom IHaskell CSS.
-*/
-
-/* Styles used for the Hoogle display in the pager */
-.hoogle-doc {
-    display: block;
-    padding-bottom: 1.3em;
-    padding-left: 0.4em;
-}
-.hoogle-code {
-    display: block;
-    font-family: monospace;
-    white-space: pre;
-}
-.hoogle-text {
-    display: block;
-}
-.hoogle-name {
-    color: green;
-    font-weight: bold;
-}
-.hoogle-head {
-    font-weight: bold;
-}
-.hoogle-sub {
-    display: block;
-    margin-left: 0.4em;
-}
-.hoogle-package {
-    font-weight: bold;
-    font-style: italic;
-}
-.hoogle-module {
-    font-weight: bold;
-}
-.hoogle-class {
-    font-weight: bold;
-}
-
-/* Styles used for basic displays */
-.get-type {
-    color: green;
-    font-weight: bold;
-    font-family: monospace;
-    display: block;
-    white-space: pre-wrap;
-}
-
-.show-type {
-    color: green;
-    font-weight: bold;
-    font-family: monospace;
-    margin-left: 1em;
-}
-
-.mono {
-    font-family: monospace;
-    display: block;
-}
-
-.err-msg {
-    color: red;
-    font-style: italic;
-    font-family: monospace;
-    white-space: pre;
-    display: block;
-}
-
-#unshowable {
-    color: red;
-    font-weight: bold;
-}
-
-.err-msg.in.collapse {
-  padding-top: 0.7em;
-}
-
-/* Code that will get highlighted before it is highlighted */
-.highlight-code {
-    white-space: pre;
-    font-family: monospace;
-}
-
-/* Hlint styles */
-.suggestion-warning { 
-    font-weight: bold;
-    color: rgb(200, 130, 0);
-}
-.suggestion-error { 
-    font-weight: bold;
-    color: red;
-}
-.suggestion-name {
-    font-weight: bold;
-}
-</style><div style='font-weight: bold; color:red'>Look!</div>
-
-
-
-<style>/*
-Custom IHaskell CSS.
-*/
-
-/* Styles used for the Hoogle display in the pager */
-.hoogle-doc {
-    display: block;
-    padding-bottom: 1.3em;
-    padding-left: 0.4em;
-}
-.hoogle-code {
-    display: block;
-    font-family: monospace;
-    white-space: pre;
-}
-.hoogle-text {
-    display: block;
-}
-.hoogle-name {
-    color: green;
-    font-weight: bold;
-}
-.hoogle-head {
-    font-weight: bold;
-}
-.hoogle-sub {
-    display: block;
-    margin-left: 0.4em;
-}
-.hoogle-package {
-    font-weight: bold;
-    font-style: italic;
-}
-.hoogle-module {
-    font-weight: bold;
-}
-.hoogle-class {
-    font-weight: bold;
-}
-
-/* Styles used for basic displays */
-.get-type {
-    color: green;
-    font-weight: bold;
-    font-family: monospace;
-    display: block;
-    white-space: pre-wrap;
-}
-
-.show-type {
-    color: green;
-    font-weight: bold;
-    font-family: monospace;
-    margin-left: 1em;
-}
-
-.mono {
-    font-family: monospace;
-    display: block;
-}
-
-.err-msg {
-    color: red;
-    font-style: italic;
-    font-family: monospace;
-    white-space: pre;
-    display: block;
-}
-
-#unshowable {
-    color: red;
-    font-weight: bold;
-}
-
-.err-msg.in.collapse {
-  padding-top: 0.7em;
-}
-
-/* Code that will get highlighted before it is highlighted */
-.highlight-code {
-    white-space: pre;
-    font-family: monospace;
-}
-
-/* Hlint styles */
-.suggestion-warning { 
-    font-weight: bold;
-    color: rgb(200, 130, 0);
-}
-.suggestion-error { 
-    font-weight: bold;
-    color: red;
-}
-.suggestion-name {
-    font-weight: bold;
-}
-</style><div style='font-weight: bold; color:green'>Look!</div>
-
-
-
-<style>/*
-Custom IHaskell CSS.
-*/
-
-/* Styles used for the Hoogle display in the pager */
-.hoogle-doc {
-    display: block;
-    padding-bottom: 1.3em;
-    padding-left: 0.4em;
-}
-.hoogle-code {
-    display: block;
-    font-family: monospace;
-    white-space: pre;
-}
-.hoogle-text {
-    display: block;
-}
-.hoogle-name {
-    color: green;
-    font-weight: bold;
-}
-.hoogle-head {
-    font-weight: bold;
-}
-.hoogle-sub {
-    display: block;
-    margin-left: 0.4em;
-}
-.hoogle-package {
-    font-weight: bold;
-    font-style: italic;
-}
-.hoogle-module {
-    font-weight: bold;
-}
-.hoogle-class {
-    font-weight: bold;
-}
-
-/* Styles used for basic displays */
-.get-type {
-    color: green;
-    font-weight: bold;
-    font-family: monospace;
-    display: block;
-    white-space: pre-wrap;
-}
-
-.show-type {
-    color: green;
-    font-weight: bold;
-    font-family: monospace;
-    margin-left: 1em;
-}
-
-.mono {
-    font-family: monospace;
-    display: block;
-}
-
-.err-msg {
-    color: red;
-    font-style: italic;
-    font-family: monospace;
-    white-space: pre;
-    display: block;
-}
-
-#unshowable {
-    color: red;
-    font-weight: bold;
-}
-
-.err-msg.in.collapse {
-  padding-top: 0.7em;
-}
-
-/* Code that will get highlighted before it is highlighted */
-.highlight-code {
-    white-space: pre;
-    font-family: monospace;
-}
-
-/* Hlint styles */
-.suggestion-warning { 
-    font-weight: bold;
-    color: rgb(200, 130, 0);
-}
-.suggestion-error { 
-    font-weight: bold;
-    color: red;
-}
-.suggestion-name {
-    font-weight: bold;
-}
-</style><div style='font-weight: bold; color:blue'>Look!</div>
-
-
 ## 一些技巧
 
 + `!`用来执行shell命令
@@ -1127,3 +744,8 @@ Custom IHaskell CSS.
 
 + 尽量不要让jupyter打印循环或者递归,如果出错可能会卡死,下次也打不开,处理方法是用文本编辑器打开`ipynb`文件,直接删除对应的cell内容和打印内容
 
+
+
+```scala
+
+```

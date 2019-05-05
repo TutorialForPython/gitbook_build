@@ -2,43 +2,44 @@
     "title": "python攻略",
     "description": "介绍python3.5+的语法与编程惯用法",
     "gitbook": ">=2.0.0",
-    "author" : "hsz",
+    "author": "hsz",
     "language": "zh-hans",
-    "plugins": [ "-lunr","-search","search-pro",
+    "plugins": ["-lunr", "-search", "search-pro",
         "advanced-emoji",
-        "github" ,"github-buttons",
-        "katex",
+        "github", "github-buttons",
+        "mathjax",
         "splitter",
         "expandable-chapters-small",
         "tbfed-pagefooter",
         "-sharing",
         "donate",
         "sitemap-general",
-        "anchors","anchor-navigation-ex"],
+        "anchors", "anchor-navigation-ex"
+    ],
     "pluginsConfig": {
         "sharing": {
-           "weibo": false,
-           "facebook": false,
-           "twitter": false,
-           "google": true,
-           "instapaper": false,
-           "vk": false,
-           "all": [ "google"]
+            "weibo": false,
+            "facebook": false,
+            "twitter": false,
+            "google": true,
+            "instapaper": false,
+            "vk": false,
+            "all": ["google"]
         },
         "github": {
             "url": "http://blog.hszofficial.site/TutorialForPython"
         },
         "github-buttons": {
             "repo": "hsz1273327/TutorialForPython",
-            "types": ["star","watch","fork"],
+            "types": ["star", "watch", "fork"],
             "size": "small"
         },
         "search-pro": {
             "cutWordLib": "nodejieba",
-            "defineWord" : ["Gitbook Use"]
+            "defineWord": ["Gitbook Use"]
         },
         "tbfed-pagefooter": {
-            "copyright":"Copyright &copy hsz 2017",
+            "copyright": "Copyright &copy hsz 2017",
             "modify_label": "该文件修订时间：",
             "modify_format": "YYYY-MM-DD HH:mm:ss"
         },
@@ -85,9 +86,9 @@
     "structure": {
         "readme": "README.md"
     },
-    "links" : {
-    "sidebar" : {
-        "Home" : "http://blog.hszofficial.site/"
+    "links": {
+        "sidebar": {
+            "Home": "http://blog.hszofficial.site/"
+        }
     }
-}
 }
