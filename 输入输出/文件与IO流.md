@@ -1,52 +1,88 @@
 
 # 文件与IO流
 
-计算机离不开文件与IO流,文件是多数操作系统的基本构成单位,而IO流则是将数据用于运算和输出结果的工具.无论是文件还是IO流,都是由bytes构成的,表现形式也只有两种:
-
-+ str       经过编码的bytes
-+ bytes        一般图片音频等使用bytes
-
-## 标准输入输出
-
-python提供了标准输入输出函数
-
-+ input(prompt:str='')->str
-
-`prompt`是提示文本
+计算机离不开文件与IO流,文件是多数操作系统的基本构成单位,而IO流则是将数据用于运算和输出结果的工具.
 
 
+本文就是介绍python处理文件系统和文件io的方法,python在异步关键字出现前只有同步的文件和文件系统接口,而现在有异步关键字后主流也还是使用同步接口,异步接口则是由第三方模块提供支持.
+
+## 同步接口
+
+这是到目前为止的主流方式,也是原生的文件相关操作方式.同步接口功能最全最多样,也最成熟,因此也更推荐这种写法.
+
+### 文件系统
+
+我们知道主流的操作系统文件系统都是由两部分组成
+
++ 文件夹
++ 文件
+
+文件夹是保存文件的容器,基本上是起到分类管理不同文件的功能.文件埋藏在一层一层的文件夹之下,生成一个路径.多个路径组合成树状就可以描述一个系统的整体文件结构.
+
+python3.4开始python标准库提供了一个文件系统的高级接口模块[pathlib](https://docs.python.org/3/library/pathlib.html)其常用功能大致在:
+
+> 判断路径
+
+功能|接口
+---|---
+判断路径是否存在|`.exists()`
+判断路径是否是文件|`.is_file()`
+判断路径是否是文件夹|`.is_dir()`
+判断路径是否是符合特定的文本规则(由re定义)|`.match(pattern)`
+
+> 获取路径信息
+
+功能|接口
+---|---
+拼接路径|`.joinpath(str)`
+拆分路径中的文件/文件夹|`.parts`
+获取路径上一层的路径|`.parent`
+获取文件/文件夹名|`.name`
+获取文件多级后缀|`.suffixes`
+获取文件后缀|`.suffix`
+获取文件除后缀外的名字|`.stem`
+通过路径获取其对应的uri表示|`.as_uri()`
+获取路径的绝对路径表示|`.absolute()`
+获取文件夹路径下的文件路径生成器|`.iterdir()`
+
+> 文件系统操作
+
+功能|接口
+---|---
+创建文件夹|`.mkdir()`
+删除文件夹|`.rmdir()`
+创建文件|`.touch()`
+删除文件|`.unlink()`
+查看文件/文件夹基本信息|`.stat()`
+文件/文件夹改名|`.rename(target)`
+文件/文件夹修改权限|`.chmod(mode)`
+
+
+python还额外提供了两个包
+
++ [shutil](https://docs.python.org/3/library/shutil.html)用于将文件/文件夹递归的迁移至别处或整个文件/文件夹递归的删除
++ [tempfile](https://docs.python.org/3/library/tempfile.html)用于创建临时文件/文件夹
 
 
 ```python
-input("输入吧")
+from pathlib import Path
+
+Path(".").absolute()
 ```
 
-    输入吧
 
 
 
-
-
-    ''
+    PosixPath('/Users/huangsizhe/Workspace/Documents/TutorialForPython/python-io')
 
 
 
-+ print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+### 文件的IO流对象
 
-    + `file`:  默认为标准输出,但可以指定一个文件对象用于输出
-    + `sep`: 字符串插入值之间，默认为空格。
-    + `end`: 字符串附加在最后一个值之后，默认换行符。  
-    + `flush`: 是否强制冲洗替换流。
+python中的文件IO流,都是由bytes构成的,表现形式也只有两种:
 
-
-```python
-print("1234")
-```
-
-    1234
-
-
-## 流对象
++ `str`经过编码的bytes,默认为`utf-8`编码
++ `bytes`未经编码的bytes,一般图片音频等使用bytes
 
 python的流对象都定义在`io`模块中,包括如下种类:
 
@@ -61,7 +97,7 @@ python的流对象都定义在`io`模块中,包括如下种类:
 + `FileIO`继承自`RawIOBase`, `IOBase`
 
 
-### 文件对象
+#### 文件对象
 
 python从硬盘中读入的文件会被封装为文件对象(TextIOWrapper).
 
@@ -108,7 +144,7 @@ with open("src/hello.txt","wb") as f:
 
 针对不同的打开模式,文件对象的的方法会有些不同,但有些基本方法是共用的,就是继承自`IOBase`的方法
 
-### `IOBase`的基本方法
+#### `IOBase`的基本方法
 
 + close()
 
@@ -148,7 +184,7 @@ with open("src/hello.txt","wb") as f:
 
     将流调整为给定大小(以字节为单位)(如果未指定大小,则调整当前位置).当前流位置不变.这种调整大小可以扩展或减少当前的文件大小.在扩展的情况下,新文件区域的内容取决于平台(在大多数系统上,其他字节为零填充).将返回新的文件大小.
 
-#### 与读写相关的方法有:
+> 与读写相关的方法有
 
 + readable()
 
@@ -179,7 +215,7 @@ with open("src/hello.txt","wb") as f:
 
 
 
-### TextIOBase的基本方法
+#### TextIOBase的基本方法
 
 
 + detach()
@@ -196,7 +232,7 @@ with open("src/hello.txt","wb") as f:
     写字符串到对象
 
 
-### BufferedIOBase的基本方法
+#### BufferedIOBase的基本方法
 
 + detach()
 
@@ -226,7 +262,7 @@ with open("src/hello.txt","wb") as f:
 
     编写给定的类似字节的对象b,并返回写入的字节数(总是等于b的长度,以字节为单位),因为如果写入失败(`OSError`将被引发).根据实际的实现,这些字节可以容易地写入底层流,或者由于性能和延迟原因而被保存在缓冲器中.当处于非阻塞模式时,如果数据需要写入原始流但无法接受所有数据而不阻塞,则会引发`BlockingIOError`.该方法返回后,调用者可能会释放或变异b.因此在方法调用期间实现只能访问b.
 
-### 另一种读写文件的方式
+#### 另一种读写文件的方式
 
 FileIO类是读写文件的另一种方式,与open不同之处在于它继承自`RawIOBase`,也就是说它是没有缓冲区也没有解码过的的单纯文件io
 
@@ -244,7 +280,7 @@ with FileIO("src/hello.txt", mode='r', closefd=True, opener=None) as f:
     b''
 
 
-### RawIOBase的基本方法
+#### RawIOBase的基本方法
 
 + read(size=-1)
 
@@ -346,5 +382,73 @@ steam.getvalue()
 
 
     b'as56g1234'
+
+
+
+## 异步文件io
+
+各个操作系统的文件io都是同步的,
+[aiofiles](https://github.com/Tinche/aiofiles)是最常用的异步文件io模块,它实际是使用多线程执行器对同步io做了封装.其使用方法和一般的io差别不大:
+
+
+```python
+import aiofiles
+async def test_aiofile():
+    async with aiofiles.open('README.md', mode='r') as f:
+        contents = await f.read()
+    print(contents)
+```
+
+
+```python
+await test_aiofile()
+```
+
+    # python-io
+    
+    `IO`(输入输出)通常来讲不属于语法的范畴,但又是任何语言任何程序不可缺少的一块--程序往往用来处理输入,而结果则通过输出告知用户.
+    
+    
+    通常讲io分为3种
+    
+    1. 标准输入输出
+    2. 文件读写
+    3. socket
+    
+    
+    本篇介绍python的输入输出相关工具.但socket过于底层,本篇更加关注实际的使用.因此会再做细分
+    
+    1. 标准输入输出
+    2. 文件io
+    3. 数据库
+    4. 消息队列
+    
+    再由于python现在区分同步异步,而异步编程的主要用武之地就在于io一块,所以在有两种不同编程方式的章节中我也会做出区分.
+    
+
+
+aiofiles除了对文件读写做了封装,还额外做了几个与文件相关的异步包装在`aiofiles.os`:
+
++ stat
++ sendfile
++ rename
++ remove
++ mkdir
++ rmdir
+
+
+```python
+from aiofiles import os 
+```
+
+
+```python
+await os.stat('README.md')
+```
+
+
+
+
+    os.stat_result(st_mode=33188, st_ino=10179981, st_dev=16777220, st_nlink=1, st_uid=501, st_gid=20, st_size=622, st_atime=1558764955, st_mtime=1558764703, st_ctime=1558764703)
 
 
