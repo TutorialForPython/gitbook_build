@@ -23,6 +23,8 @@
     * [性能调优工具](工具链篇/性能调优工具.md)
     * [结语](工具链篇/结语.md)
 
+
+
 * [语法篇](语法篇/README.md)
     * [数据模型](语法篇/数据模型/README.md)
         * [数据模型](语法篇/数据模型/数据模型.md)
@@ -86,24 +88,13 @@
 
     * [结语](语法篇/结语.md)
 
-* [输入输出](输入输出/README.md)
-    * [标准输入输出](输入输出/标准输入输出.md)
-    * [文件与IO流](输入输出/文件与IO流.md)
-    * [数据库读写](输入输出/数据库读写.md)
-    * [结语](输入输出/结语.md)
-    
-* [嵌入与扩展篇](嵌入与扩展篇/README.md)
-    * [使用Cython优化python程序的性能](嵌入与扩展篇/使用Cython优化python程序的性能/README.md)
-        * [Cython的简单介绍](嵌入与扩展篇/使用Cython优化python程序的性能/Cython的简单介绍.md)
-        * [Cython的基本模式](嵌入与扩展篇/使用Cython优化python程序的性能/Cython的基本模式.md)
-        * [静态化python模块](嵌入与扩展篇/使用Cython优化python程序的性能/静态化python模块.md)
-        * [使用cython申明文件申明python源码类型](嵌入与扩展篇/使用Cython优化python程序的性能/使用cython申明文件申明python源码类型.md)
-        * [Cython的包装模式](嵌入与扩展篇/使用Cython优化python程序的性能/Cython的包装模式.md)
-        * [使用Cython扩展numpy](嵌入与扩展篇/使用Cython优化python程序的性能/使用Cython扩展numpy.md)
+* [输入输出篇](输入输出篇/README.md)
+    * [标准输入输出](输入输出篇/标准输入输出.md)
+    * [文件与IO流](输入输出篇/文件与IO流.md)
+    * [数据库读写](输入输出篇/数据库读写.md)
+    * [结语](输入输出篇/结语.md)
 
-    * [用numba为python写高性能C扩展](嵌入与扩展篇/用numba为python写高性能C扩展.md)
-    * [使用f2py用fortain给python写扩展](嵌入与扩展篇/使用f2py用fortain给python写扩展.md)
-    * [结语](嵌入与扩展篇/结语.md)
+
 
 * [基础应用篇](基础应用篇/README.md)
     * [国际化](基础应用篇/国际化/README.md)
@@ -117,13 +108,13 @@
         * [压缩归档](基础应用篇/数据压缩与归档/压缩归档.md)
         * [结语](基础应用篇/数据压缩与归档/结语.md)
     * [定时任务](基础应用篇/定时任务.md)
-* [信息安全](信息安全/README.md)
-    * [随机密码](信息安全/随机密码.md)
-    * [摘要算法](信息安全/摘要算法.md)
-    * [加密算法](信息安全/加密算法.md)
-    * [数字签名](信息安全/数字签名.md)
-    * [动态口令](信息安全/动态口令.md)
-    * [结语](信息安全/结语.md)
+* [信息安全篇](信息安全篇/README.md)
+    * [随机密码](信息安全篇/随机密码.md)
+    * [摘要算法](信息安全篇/摘要算法.md)
+    * [加密算法](信息安全篇/加密算法.md)
+    * [数字签名](信息安全篇/数字签名.md)
+    * [动态口令](信息安全篇/动态口令.md)
+    * [结语](信息安全篇/结语.md)
 * [人机交互篇](README.md)
     * [使用python编写命令行工具](人机交互篇/使用python编写命令行工具.md)
     * [自定义交互式界面](人机交互篇/自定义交互式界面.md)
@@ -145,14 +136,32 @@
         * [结语](人机交互篇/使用matplotlib做数据可视化/结语.md)
 
     * [结语](人机交互篇/结语.md)
-    
+
+* [接口服务篇](接口服务篇/README.md)
+  * [GRpc接口服务](接口服务篇/GRpc接口服务.md)
+
+
+
 * [数学与统计应用篇](数学与统计应用篇/README.md)
     * [使用标准库处理基本数学问题](数学与统计应用篇/使用标准库处理基本数学问题/使用标准库处理基本数学问题.md)
     * [numpy的高性能同构定长多维数组ndarray](数学与统计应用篇/numpy的高性能同构定长多维数组ndarray/numpy的高性能同构定长多维数组ndarray.md)
     * [使用numpy做科学计算](数学与统计应用篇/使用numpy做科学计算/使用numpy做科学计算.md)
     * [结语](数学与统计应用篇/结语.md)
 
-* [接口服务篇](接口服务篇/README.md)
-  * [GRpc接口服务](接口服务篇/GRpc接口服务.md)
+
+
+* [嵌入与扩展篇](嵌入与扩展篇/README.md)
+    * [使用Cython优化python程序的性能](嵌入与扩展篇/使用Cython优化python程序的性能/README.md)
+        * [Cython的简单介绍](嵌入与扩展篇/使用Cython优化python程序的性能/Cython的简单介绍.md)
+        * [Cython的基本模式](嵌入与扩展篇/使用Cython优化python程序的性能/Cython的基本模式.md)
+        * [静态化python模块](嵌入与扩展篇/使用Cython优化python程序的性能/静态化python模块.md)
+        * [使用cython申明文件申明python源码类型](嵌入与扩展篇/使用Cython优化python程序的性能/使用cython申明文件申明python源码类型.md)
+        * [Cython的包装模式](嵌入与扩展篇/使用Cython优化python程序的性能/Cython的包装模式.md)
+        * [使用Cython扩展numpy](嵌入与扩展篇/使用Cython优化python程序的性能/使用Cython扩展numpy.md)
+
+    * [用numba为python写高性能C扩展](嵌入与扩展篇/用numba为python写高性能C扩展.md)
+    * [使用f2py用fortain给python写扩展](嵌入与扩展篇/使用f2py用fortain给python写扩展.md)
+    * [结语](嵌入与扩展篇/结语.md)
+
 
 * [术语表](术语表.md)
