@@ -1,3 +1,4 @@
+
 # GRpc接口服务
 
 GRpc正如其名,是一种RPC.它实际上和RESTful接口在功能上是相近的,本质都是一种请求响应模式的服务.只是作为一个RPC,GRpc一般描述动作而非资源,并且它可以返回的不光是一个数据,而是一组流数据.
@@ -18,11 +19,11 @@ GRpc是一种跨语言的Rpc,它建立在http2上使用protobuf作为结构化�
 3. 服务端实现protobuf文件中定义的方法
 4. 客户端调用protobuf文件中定义的方法
 
-在python中我们使用[protobuf](https://pypi.org/project/protobuf/)和[grpcio](https://pypi.org/project/grpcio/)
+在python中我们使用[protobuf](https://pypi.org/project/protobuf/)和[grpcio](https://pypi.org/project/grpcio/)来编译protobuf文件.
 
 ## 请求-响应
 
-这个例子[C0](https://github.com/TutorialForPython/python-server/tree/master/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/C0)我们来实现一个简单的服务--输入一个数,输出这个数的平方
+这个例子[C0](https://github.com/TutorialForPython/python-io/tree/master/%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/RPC%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/C0)我们来实现一个简单的服务--输入一个数,输出这个数的平方
 
 ### 创建一个protobuf文件
 
@@ -233,11 +234,12 @@ grpc原生支持ssl只需要:
     channel = grpc.secure_channel(url, credentials)
     ```
 
+
 ## 请求-流响应
 
 这种需求比较常见,有点类似python中的range函数,它生成的是一个流而非一个数组,它会一次一条的按顺序将数据发送回请求的客户端.
 
-这个例子[C1](https://github.com/TutorialForPython/python-server/tree/master/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/C1)实现了给出一个正整数,它会返回从0开始到它为止的每个整数的平方.
+这个例子[C1](https://github.com/TutorialForPython/python-io/tree/master/%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/RPC%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/C1)实现了给出一个正整数,它会返回从0开始到它为止的每个整数的平方.
 
 ### 修改protobuf文件
 
@@ -284,11 +286,12 @@ async def query():
 ...
 ```
 
+
 ## 流请求-响应
 
 这种需求不是很多见,可能用的比较多的是收集一串数据后统一进行处理吧,流只是可以确保是同一个客户端发过来的而已.
 
-这个例子[C2](https://github.com/TutorialForPython/python-server/tree/master/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/C2)实现了传过来一串数,之后返回他们的平方和
+这个例子[C2](https://github.com/TutorialForPython/python-io/tree/master/%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/RPC%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/C2)实现了传过来一串数,之后返回他们的平方和
 
 ### 修改protobuf文件
 
@@ -335,6 +338,8 @@ from aitertools import AsyncIterWrapper
 response = await client.sumSquare(AsyncIterWrapper(Message(message=i) for i in range(12)))
 ...
 ```
+
+
 
 ## 流请求-流响应
 
@@ -391,7 +396,7 @@ async with insecure_channel(url) as conn:
 
 ### 请求流中返回流
 
-这个例子[C4](https://github.com/TutorialForPython/python-server/tree/master/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/C4)实现了传过来一串数,过程中每传来一个数就返回它的平方
+这个例子[C4](https://github.com/TutorialForPython/python-io/tree/master/%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/RPC%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/C4)实现了传过来一串数,过程中每传来一个数就返回它的平方
 
 #### 修改服务端实现
 
@@ -404,6 +409,7 @@ class SquareServic(SquareServiceServicer):
         for i in request_iterator:
             yield Message(message=i.message**2)
 ```
+
 
 ## 总结
 
