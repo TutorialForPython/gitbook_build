@@ -731,3 +731,59 @@ c1.start()
 + `join()` 阻塞直到队列中所有元素处理完
 
 Queue是线程安全的,而且支持in操作,因此用它的时候不用考虑锁的问题
+
+## 线程变协程
+
+在Python3.4之前python没有原生的协程那个时候有一个神级的协程库[gevent](http://www.gevent.org/contents.html)它可以通过[monkey patch](http://blog.hszofficial.site/TutorialForPython/%E8%AF%AD%E6%B3%95%E7%AF%87/%E5%85%83%E7%BC%96%E7%A8%8B/%E7%8C%B4%E5%AD%90%E8%A1%A5%E4%B8%81%E5%92%8C%E7%83%AD%E6%9B%B4%E6%96%B0.html)将标准库替换从而实现线程变协程,替换的库在[这个文档中](http://www.gevent.org/api/gevent.monkey.html#gevent.monkey.patch_all)有汇总.gevent至今依然被广泛使用,也是最推荐的协程使用方式之一.
+
+
+```python
+%%writefile src/gvt_test.py
+from gevent import monkey; monkey.patch_all()
+import threading
+import queue
+import socket
+print(socket.socket)
+
+class Processor(threading.Thread):
+
+    def __init__(self, queue, idx):
+        super(Processor, self).__init__()
+        self.queue = queue
+        self.idx = idx
+
+    def return_name(self):
+        ## NOTE: self.name is an attribute of multiprocessing.Process
+        return "Thread idx=%s is called '%s'" % (self.idx, self.name)
+
+    def run(self):
+        self.queue.put(self.return_name())
+        
+processes = list()
+q = queue.Queue()
+for i in range(0,5):
+    p=Processor(queue=q, idx=i)
+    processes.append(p)
+    p.start()
+for proc in processes:
+    proc.join()
+    ## NOTE: You cannot depend on the results to queue / dequeue in the
+    ## same order
+    print("RESULT: {}".format(q.get()))
+```
+
+    Overwriting src/gvt_test.py
+
+
+
+```python
+!python src/gvt_test.py
+```
+
+    <class 'gevent._socket3.socket'>
+    RESULT: Thread idx=0 is called 'Thread-1'
+    RESULT: Thread idx=1 is called 'Thread-2'
+    RESULT: Thread idx=2 is called 'Thread-3'
+    RESULT: Thread idx=3 is called 'Thread-4'
+    RESULT: Thread idx=4 is called 'Thread-5'
+
