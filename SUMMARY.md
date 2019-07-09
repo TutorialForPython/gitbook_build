@@ -114,6 +114,9 @@
             * [JSONRPC接口服务](输入输出篇/接口服务/RPC服务/JSONRPC接口服务.md)
             * [GRpc接口服务](输入输出篇/接口服务/RPC服务/GRpc接口服务.md)
             * [ZERORPC接口服务](输入输出篇/接口服务/RPC服务/ZERORPC接口服务.md)
+        * [Http接口服务](输入输出篇/接口服务/Http接口服务/README.md)
+            * [使用http客户端获取数据](输入输出篇/接口服务/Http接口服务/使用http客户端获取数据.md)
+            * [使用Flask快速构建RESTful接口服务](输入输出篇/接口服务/Http接口服务/使用Flask快速构建RESTful接口服务.md)
         <!-- * [http接口服务]()
         * [websocket接口服务]() -->
     * [结语](输入输出篇/结语.md)
