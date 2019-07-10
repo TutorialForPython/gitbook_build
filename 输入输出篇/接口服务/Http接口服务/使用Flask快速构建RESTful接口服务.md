@@ -409,7 +409,27 @@ flask程序中每一次的请求需要先通过钩子,因此我们也可以将�
 
 ![](source/flask_hook.png)
 
-蓝图也有类似的钩子,其执行顺序也和上面类似
+蓝图也有类似的钩子,其执行顺序也和上面类似.
+
+如果需要精细化到具体的view,我们则可以使用装饰器,在`MethodView`的子类中,我们可以在其中声明`decorators = [xxx]`来调用装饰器,一个典型的装饰器是:
+
+```python
+
+from functools import wraps
+import time
+
+def print_time(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        start = time.time()
+        response = f(*args, **kwargs)
+        end = time.time()
+        spend = end-start
+        print(f"spend {spend} s")
+        return response
+    return decorated_function
+
+```
 
 我们用例子[C3](https://github.com/TutorialForPython/python-io/tree/master/%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/Http%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/code/flask-server/C3)来展示下
 
