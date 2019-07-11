@@ -118,8 +118,8 @@
             * [使用http客户端获取数据](输入输出篇/接口服务/Http接口服务/使用http客户端获取数据.md)
             * [使用Flask快速构建RESTful接口服务](输入输出篇/接口服务/Http接口服务/使用Flask快速构建RESTful接口服务.md)
             * [使用Sanic构建异步的RESTful接口服务](输入输出篇/接口服务/Http接口服务/使用Sanic构建异步的RESTful接口服务.md)
-        <!-- * [http接口服务]()
-        * [websocket接口服务]() -->
+            * [结语](输入输出篇/接口服务/Http接口服务/结语.md)
+        * [WebSocket接口服务](输入输出篇/接口服务/WebSocket接口服务/README.md)
     * [结语](输入输出篇/结语.md)
 * [信息安全篇](信息安全篇/README.md)
     * [随机密码](信息安全篇/随机密码.md)
