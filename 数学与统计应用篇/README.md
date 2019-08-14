@@ -21,7 +21,8 @@ python是一门应用领域非常广泛的编程语言,但现今最为人所知�
     通常这类框架是某种理论框架的延续,也就是说算出结果只是附带的事情,这些框架关心的其实更多的是如何实现计算这一过程,虽然未必应用广泛但通常也没有替代品
     + 符号计算框架[Sympy](http://www.sympy.org/en/index.html)
     + 贝叶斯推断框架[Pymc3](http://docs.pymc.io/index.html)
-    + 基于计算图的符号计算框架[TensorFlow](https://www.tensorflow.org/)
+    + 分布式大数据计算框架[spark](http://spark.apache.org/docs/latest/api/python/index.html)
+    + 纯python的分布式计算框架[dask](https://dask.org/)
 
 + 算法封装
 
@@ -29,7 +30,19 @@ python是一门应用领域非常广泛的编程语言,但现今最为人所知�
     + 机器学习算法包[sklearn](http://scikit-learn.org/stable/)
     + 专业统计工具包[Statsmodels](http://www.statsmodels.org/stable/index.html)
     + 复杂网络计算框架[networkx](http://networkx.github.io/)以及`C/C++`实现的[igraph](http://igraph.org/)
-    + 深度学习算法封装[keras](http://keras-cn.readthedocs.io/en/latest/)
+    + 深度学习计算框架[pytorch](https://pytorch.org/)
+
   
 
 本文会着重介绍Numpy和Pandas,并且以介绍其数据结构为主.当然,更重要的,本文还会介绍python标准库中的数学计算工具.其他的内容就过于专业了,以后有机会会在其他文章中介绍.
+
+本文会分为如下几个部分:
+
++ 使用标准库处理基本数学问题
++ 使用python做科学计算
++ 使用python做数据分析
++ 使用python做统计分析
++ 使用python做大数据分析
++ 使用python做复杂网络分析
++ 使用python做机器学习
++ 使用python做深度学习
