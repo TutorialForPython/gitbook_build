@@ -166,6 +166,9 @@
         * [matplitlib结合web技术](人机交互篇/使用matplotlib做数据可视化/matplitlib结合web技术.md)
         * [结语](数学与统计应用篇/使用matplotlib做数据可视化/结语.md)
 
+    * [术语表](数学与统计应用篇/术语表/README.md)
+        * [统计术语](数学与统计应用篇/术语表/统计术语/README.md)
+            * [误差](数学与统计应用篇/术语表/统计术语/误差.md)
 
 
 * [嵌入与扩展篇](嵌入与扩展篇/README.md)
