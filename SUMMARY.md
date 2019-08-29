@@ -168,16 +168,13 @@
 
         * [数值计算](科学计算篇/使用python做计算/数值计算/README.md)
             * [使用标准库处理基本数学问题](科学计算篇/使用python做计算/数值计算/使用标准库处理基本数学问题/使用标准库处理基本数学问题.md)
+            * [使用numpy和scipy处理复杂的数值计算问题](科学计算篇/使用python做计算/数值计算/使用numpy和scipy处理复杂的数值计算问题/README.md)
+                * [numpy的高性能同构定长多维数组](科学计算篇/使用python做计算/数值计算/使用numpy和scipy处理复杂的数值计算问题/numpy的高性能同构定长多维数组/numpy的高性能同构定长多维数组.md)
+                * [universal_function](科学计算篇/使用python做计算/数值计算/使用numpy和scipy处理复杂的数值计算问题/universal_function/universal_function.md)
+                * [精度与基本数学运算](科学计算篇/使用python做计算/数值计算/使用numpy和scipy处理复杂的数值计算问题/精度与基本数学运算.md)
 
 
-            <!-- * [使用numpy和scipy处理复杂的数值计算问题](科学计算篇/使用python做计算/数值计算/使用numpy和scipy处理复杂的数值计算问题/README.md)
-                * [numpy的高性能同构定长多维数组ndarray](科学计算篇/使用python做计算/数值计算/使用numpy和scipy处理复杂的数值计算问题/numpy的高性能同构定长多维数组ndarray/numpy的高性能同构定长多维数组ndarray.md)
-                * [使用numpy做科学计算](科学计算篇/使用python做计算/数值计算/使用numpy和scipy处理复杂的数值计算问题/使用numpy做科学计算/使用numpy做科学计算.md) -->
-
-            <!-- * [使用dask处理大规模数据的数值计算问题](科学计算篇/使用python做计算/数值计算)
-            * [使用pytorch利用GPU处理数值计算问题](科学计算篇/使用python做计算/数值计算) -->
-
-        
+                * [使用numpy做科学计算](科学计算篇/使用python做计算/数值计算/使用numpy和scipy处理复杂的数值计算问题/使用numpy做科学计算/使用numpy做科学计算.md)
 
     * [数据可视化](科学计算篇/数据可视化/README.md)
         * [使用matplotlib做数据可视化](科学计算篇/数据可视化/使用matplotlib做数据可视化/README.md)
