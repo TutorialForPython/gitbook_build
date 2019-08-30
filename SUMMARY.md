@@ -189,9 +189,6 @@
 
     * [不同领域的应用](科学计算篇/不同领域的应用/README.md)
 
-    * [术语表](数学与统计应用篇/术语表/README.md)
-        
-
 
 * [嵌入与扩展篇](嵌入与扩展篇/README.md)
     * [使用Cython优化python程序的性能](嵌入与扩展篇/使用Cython优化python程序的性能/README.md)
