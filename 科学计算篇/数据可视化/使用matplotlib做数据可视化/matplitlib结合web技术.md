@@ -1035,9 +1035,9 @@ HTML(draw_k_svg('600000','2016-6-20','2016-7-20'))
 
 通过这种方式可以提供交互,把图片连同工具栏一起发送到客户端,具体的方法可以看样例代码,这边提供了2种样例代码,分别使用:
 
-+ [tornado](https://github.com/hsz1273327/matplotlib_for_visualization/blob/master/ipynbs/src/webtech/canvas_websocket/simpleApp_tornado.py)
++ [tornado](https://github.com/TutorialForPython/python-data-visualization/blob/master/%E4%BD%BF%E7%94%A8matplotlib%E5%81%9A%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/src/webtech/canvas_websocket/simpleApp_tornado.py)
 
-+ [flask+gevent-websocket](https://github.com/hsz1273327/matplotlib_for_visualization/blob/master/ipynbs/src/webtech/canvas_websocket/simpleApp.py)
++ [flask+gevent-websocket](https://github.com/TutorialForPython/python-data-visualization/blob/master/%E4%BD%BF%E7%94%A8matplotlib%E5%81%9A%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/src/webtech/canvas_websocket/simpleApp.py)
 
 ## 使用`.to_html5_video()`直接输出动画
 
