@@ -111,312 +111,6 @@ jupyter notebook
 
 事实上jupyter并没有专门的pypy核心,但其实要用pypy比其他的都简单,我们通过`ipython kernelspec list`找到自己原本的python核所在的目录,进去这个目录找到核文件夹,我们把它复制一份改名叫`pypy`,然后在pypy环境中pip安装jupyter,这样原本的python的核就会被替换掉,我们只要给这俩核的文件夹名和其中的`kernel.json`中的display_name对掉下就好了
 
-### Golang
-
-Go语言是谷歌几年前推出的一门编译型语言,它以简洁优雅高,高开发效率,高可维护性和善于处理高并发而著称
-Go有一套完善的开发流程和语言规范,是开发高性能服务的优秀选择.
-
-#### 安装依赖
-
-+ go语言:
-
-go语言只要用homebrew安装即可
-
-```bash
-brew install go
-```
-
-安装好后要在`~/.bash_profile`内添加以下语句(中你的go项目位置)后resource下激活或者重启计算机
-```bash
-export GOPATH=你的go项目位置#GOPATH可以有多个,用:隔开,其中第一个回存放 go get 命令下载的库文件会放在第一个位置上
-```
-如果你希望你的
-```bash
-export PATH=${GOPATH//://bin:}/bin:$PATH
-```
-
-+ [gophernotes](https://github.com/gopherdata/gophernotes)
-
-这是一个go语言的解释器,可以写一句执行一句,它也自带一个交互命令行工具
-
-安装:
-
-首先它依赖go的一个包叫做goimports,安装的话墙外很简单
-
-```bash
-go get golang.org/x/tools/cmd/goimports
-```
-
-但墙外我们就得用[这个](http://www.golangtc.com/download/package)
-
-它的安装默认是依赖zmq2.2.x,但我想大多数人都装的是zmq4.x吧,所以只要这么安装
-
-```bash
-go get -tags zmq_4_x github.com/gophergala2016/gophernotes
-```   
-
-#### 安装kernel
-
-```bash
-mkdir -p ~/.ipython/kernels/gophernotes
-```
-
-然后去你的第一个GOPATH下找到/src/github.com/takluyver/igo/kernel/文件夹,之后复制进.ipython/kernels/gophernotes
-
-
-之后修改其中的`kernel.json`,将其中的`GOPATH`替换成自己的的gopath
-
-
-#### 测试下
-
-切换Kernel到Golang 1.5
-
-
-
-```scala
-import "fmt"
-```
-
-
-```scala
-word := "world"
-```
-
-
-```scala
-fmt.Sprintf("hello %s",word)
-```
-
-
-
-
-    hello world
-
-
-
-> channels
-
-
-```scala
-msg := make(chan string)
-```
-
-
-```scala
-go func() {msg <- "ping"}()
-```
-
-
-```scala
-message := <- msg
-```
-
-> 例子
-
-
-```scala
-import "fmt"
-```
-
-
-```scala
-fmt.Print("1")
-```
-
-    1
-
-
-
-
-    1 <nil>
-
-
-
-go语言可以看[这篇](https://github.com/astaxie/build-web-application-with-golang/tree/master/zh)来学习
-
-### Javascript(jp-babel)
-
-### 安装kernel
-
-```shell
-sudo apt-get install nodejs-legacy npm ipython ipython-notebook
-sudo npm install -g jp-babel
-```
-#### 安装kernel
-
-```shell
-jp-babel-install
-jp-babel-notebook
-```
-
-#### 测试下
-切换Kernel到JavaScript(Node.js)
-
-
-```scala
-var Animal = {
-    createNew: function(){
-        var animal = {}
-        animal.sleep = function(){
-          return "Zzzzz"
-        }
-        return animal
-      }
-}
-
-var Dog = {
-    createNew: function(name){
-        var dog = Animal.createNew()//继承
-        dog.name = name
-        dog.makeSound = function(){
-            return "wangwang"
-        }
-        return dog
-    }
-}
-a=Dog.createNew("doggy")
-a.makeSound()
-```
-
-
-
-
-    'wangwang'
-
-
-
-### R
-
-似乎是很受数据科学家由其统计出身的人欢迎的一种语言.但是语法别扭,个人不喜欢,但是还是得学习
-
-#### 安装依赖
-
-+ R
-
-[下载新版(3.22)R语言安装包](http://mirror.bjtu.edu.cn/cran/bin/macosx/R-3.2.2.pkg)
-
-然后双击安装
-
-#### 安装kernel
-
-```R
-install.packages(c('rzmq','repr','IRkernel','IRdisplay'),
-                 repos = c('http://irkernel.github.io/', getOption('repos')))
-IRkernel::installspec()
-```
-
-#### 测试下
-
-写个身高的简单统计计算吧:
-
-先安装`sca`包:
-```R
-> install.packages("sca")
-```
-切换Kernel到R:
-
-
-```scala
-library(sca)
-height=c(1.75,1.82,1.78,1.93,1.77)
-weight=c(69,80,78,96,65)
-age=c(19,21,20,26,17)
-group_A=data.frame(height,weight,age)
-print(group_A)
-
-sum_h=sum(group_A$height)#身高求和
-cat("身高和:",sum_h,"\n")
-cat("分布:\n")
-cat(percent(group_A$height/sum_h),"\n")
-cat("身高均值",mean(group_A$height),"\n")
-sum_w=sum(group_A$weight)#体重求和
-cat("体重和:",sum_w,"\n")
-cat("分布:\n")
-cat(percent(group_A$weight/sum_w),"\n")
-cat("体重均值",mean(group_A$weight),"\n")
-```
-
-      height weight age
-    1   1.75     69  19
-    2   1.82     80  21
-    3   1.78     78  20
-    4   1.93     96  26
-    5   1.77     65  17
-    身高和: 9.05 
-    分布:
-    19 % 20 % 20 % 21 % 20 % 
-    身高均值 1.81 
-    体重和: 388 
-    分布:
-    18 % 21 % 20 % 25 % 17 % 
-    体重均值 77.6 
-
-
-### Scala
-
-Scala应该是后起语言中的新星了,同时支持面向对象编程和函数式编程的特性让它分外耀眼,而拥有类型推断又让它显得十分简洁优雅.
-它与Java间的联系又让它因为有衬托对比而显得格外讨喜.
-
-#### 安装依赖
-自然要安装scala了
-
-    brew install scala
-
-留意安装的是什么版本
-
-#### 安装kernel
-虽然列表中推荐的是iscala 但还有一个更加简单的方式--[jupyter-scala](https://github.com/alexarchambault/jupyter-scala)**
-
-这个方法就是简单无脑的下载下来然后运行脚本
-
-+ 2.10版本的scala[下载这个](https://oss.sonatype.org/content/repositories/snapshots/com/github/alexarchambault/jupyter/jupyter-scala-cli_2.10.5/0.2.0-SNAPSHOT/jupyter-scala_2.10.5-0.2.0-SNAPSHOT.zip)
-2.11版本的[下载这个](https://oss.sonatype.org/content/repositories/snapshots/com/github/alexarchambault/jupyter/jupyter-scala-cli_2.11.6/0.2.0-SNAPSHOT/jupyter-scala_2.11.6-0.2.0-SNAPSHOT.zip)
-
-+ 解压到一个安全的位置然后运行其中`bin`文件夹下的的`jupyter-scala`脚本自动完成安装
-
-+ 用
-```bash
-ipython kernelspec list
-```
-查看是否有`scala211`或者`scala210`这样的输出,有的话之后运行
-```bash
-ipython console --kernel scala211
-```
-这样再用jupyter notebook进入就能找到Scala 2.11了
-
-当然这样如果以后scala升级了那就无法使用最新版本了,解决方法就是自己本地编译
-
-
-
-#### 测试下
-
-写个简单的尾递归求阶乘
-
-切换Kernel到Scala 2.11
-
-
-
-```scala
-def factorial(n:Int):Int = {
-    if(n >0) n * factorial(n-1) else 1
-}
-```
-
-
-    defined [32mfunction [36mfactorial[0m
-
-
-
-```scala
-factorial(5)
-```
-
-
-    [36mres1[0m: [32mInt[0m = [32m120[0m
-
-
-学习scala可以去[这里](http://twitter.github.io/scala_school/zh_cn/)
-
 ### [SparkMagic](https://github.com/jupyter-incubator/sparkmagic)
 
 sparkmagic是一个可以用于连接远端spark,让我们通过jupyternotebook来使用spark的工具.
@@ -541,7 +235,7 @@ jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 
 
-```scala
+```Rust
 val NUM_SAMPLES = 10000
 val count = sc.parallelize(1 to NUM_SAMPLES).map{i =>
     val x = Math.random()
@@ -567,7 +261,146 @@ println("Pi is roughly " + 4.0 * count / NUM_SAMPLES)
 
 学习spark可以参考[官方文档](http://spark.apache.org/)
 
-### C/C++
+### scheme
+
+安装这个是为了学<计算机程序的构造和解释>这本书,作为Lisp的方言,scheme确实不简单.我安装的是基于ipython的`calysto_scheme`,它本质上是用python解析执行scheme语句.
+
+#### 安装
+
+再github上下载<https://github.com/Calysto/calysto_scheme>然后只要cd到目录
+
+    python3 setup.py install
+
+#### 测试
+
+求斐波那契数列
+
+
+```Rust
+(begin
+ (define (factorial n)
+  (define (iter product counter)
+    (if (> counter n)
+        product
+        (iter (* counter product)
+              (+ counter 1))))
+  (iter 1 1))
+ (factorial 10)
+ )
+```
+
+
+
+
+    3628800
+
+
+
+
+```Rust
+(begin
+  (define fib
+    (lambda (n)
+      (cond
+        ((= n 0) 1)
+        ((= n 1) 1)
+        (else(+ (fib (- n 1))
+                 (fib (- n 2))
+               )
+         )
+       )
+     )    
+   )
+   (fib 5)
+ )
+```
+
+
+
+
+    8
+
+
+
+### postgresql
+
+最先进最全能的开源关系数据库postgresql也有对应的内核[postgres_kernel](https://github.com/bgschiller/postgres_kernel).
+
+
+#### 安装
+
+```bash
+pip install psycopg2-binary
+pip install git+https://github.com/data-science-tools/postgres_kernel.git@master
+```
+
+注意原版依赖psycopg2,很多时候不好安装.
+
+#### 测试
+
+
+```Rust
+-- connection: postgres://postgres:postgres@localhost:5432/test
+```
+
+
+```Rust
+-- autocommit: true
+```
+
+    switched autocommit mode to True
+
+
+```Rust
+SELECT * FROM Person limit 5
+```
+
+    5 row(s) returned.
+
+
+
+<table>
+<thead>
+<tr><th style="text-align: right;">  id</th><th>name  </th><th>birthday  </th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right;">   1</td><td>千万  </td><td>2019-03-04</td></tr>
+<tr><td style="text-align: right;">   2</td><td>十万  </td><td>2018-03-04</td></tr>
+<tr><td style="text-align: right;">   3</td><td>百万  </td><td>2017-03-04</td></tr>
+<tr><td style="text-align: right;">   4</td><td>千万  </td><td>2019-03-04</td></tr>
+<tr><td style="text-align: right;">   5</td><td>十万  </td><td>2018-03-04</td></tr>
+</tbody>
+</table>
+
+
+### C语言
+
+[jupyter-c-kernel](https://github.com/brendan-rius/jupyter-c-kernel)是一个简单的C语言内核,它的外部依赖只有gcc.
+
+#### 安装
+
+```bash
+pip install jupyter-c-kernel
+install_c_kernel
+```
+
+#### 测试一下
+
+
+```Rust
+//cflag:-lm
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    printf("sqrt(67)=%f",sqrt(67));
+    return 0;
+}
+```
+
+    sqrt(67)=8.185353
+
+### C++语言
 
 想象下C++这种竟然可以依靠强大的LLVM和Clang实现脚本化,是不是很激动~~
 
@@ -590,7 +423,7 @@ cling[从这里下载](https://ecsft.cern.ch/dist/cling/current/)对应版本的
 切换Kernel到C++:
 
 
-```scala
+```Rust
 #include <stdio.h>
 printf("Hello World!\n")
 ```
@@ -600,7 +433,7 @@ printf("Hello World!\n")
 
 
 
-```scala
+```Rust
 .rawInput
 void test() {//方法
     printf("just a test");
@@ -613,21 +446,21 @@ void test() {//方法
 
 
 
-```scala
+```Rust
 test()
 ```
 
     just a test
 
 
-```scala
+```Rust
 auto func = [](int a, int b) -> int { return a+b; };//c++11中的匿名函数
 ```
 
     
 
 
-```scala
+```Rust
 func(2, 3)
 ```
 
@@ -635,7 +468,7 @@ func(2, 3)
 
 
 
-```scala
+```Rust
 .rawInput
 class Rectangle {//类
     private:
@@ -661,7 +494,7 @@ class Rectangle {//类
     
 
 
-```scala
+```Rust
 Rectangle r = Rectangle(5, 4);
 r.area()
 ```
@@ -669,66 +502,364 @@ r.area()
     (double) 20.0000
 
 
-### scheme
+### Golang
 
-安装这个是为了学<计算机程序的构造和解释>这本书,作为Lisp的方言,scheme确实不简单.我安装的是基于ipython的`calysto_scheme`
+Go语言是谷歌几年前推出的一门编译型语言,它以简洁优雅高,高开发效率,高可维护性和善于处理高并发而著称
+Go有一套完善的开发流程和语言规范,是开发高性能服务的优秀选择.
+
+#### 安装依赖
+
++ go语言:
+
+go语言只要用homebrew安装即可
+
+```bash
+brew install go
+```
+
+安装好后要在`~/.bash_profile`内添加以下语句(中你的go项目位置)后resource下激活或者重启计算机
+```bash
+export GOPATH=你的go项目位置#GOPATH可以有多个,用:隔开,其中第一个回存放 go get 命令下载的库文件会放在第一个位置上
+```
+如果你希望你的
+```bash
+export PATH=${GOPATH//://bin:}/bin:$PATH
+```
+
++ [gophernotes](https://github.com/gopherdata/gophernotes)
+
+这是一个go语言的解释器,可以写一句执行一句,它也自带一个交互命令行工具
+
+安装:
+
+首先它依赖go的一个包叫做goimports,安装的话墙外很简单
+
+```bash
+go get golang.org/x/tools/cmd/goimports
+```
+
+但墙外我们就得用[这个](http://www.golangtc.com/download/package)
+
+它的安装默认是依赖zmq2.2.x,但我想大多数人都装的是zmq4.x吧,所以只要这么安装
+
+```bash
+go get -tags zmq_4_x github.com/gophergala2016/gophernotes
+```   
+
+#### 安装kernel
+
+```bash
+mkdir -p ~/.ipython/kernels/gophernotes
+```
+
+然后去你的第一个GOPATH下找到/src/github.com/takluyver/igo/kernel/文件夹,之后复制进.ipython/kernels/gophernotes
+
+
+之后修改其中的`kernel.json`,将其中的`GOPATH`替换成自己的的gopath
+
+
+#### 测试下
+
+切换Kernel到Golang 1.5
+
+
+
+```Rust
+import "fmt"
+```
+
+
+```Rust
+word := "world"
+```
+
+
+```Rust
+fmt.Sprintf("hello %s",word)
+```
+
+
+
+
+    hello world
+
+
+
+> channels
+
+
+```Rust
+msg := make(chan string)
+```
+
+
+```Rust
+go func() {msg <- "ping"}()
+```
+
+
+```Rust
+message := <- msg
+```
+
+> 例子
+
+
+```Rust
+import "fmt"
+```
+
+
+```Rust
+fmt.Print("1")
+```
+
+    1
+
+
+
+
+    1 <nil>
+
+
+
+go语言可以看[这篇](https://github.com/astaxie/build-web-application-with-golang/tree/master/zh)来学习
+
+### Rust
+
+Rust也是一门很有潜力的编程语言.
 
 #### 安装
 
-再github上下载<https://github.com/Calysto/calysto_scheme>然后只要cd到目录
-
-    python3 setup.py install
+```bash
+cargo install evcxr_jupyter
+evcxr_jupyter --install
+```
 
 #### 测试
 
-求斐波那契数列
+
+```Rust
+use std::fmt::Debug;
+pub struct Matrix<T> {
+    pub values: Vec<T>, 
+    pub row_size: usize
+}
+
+impl<T: Debug> Matrix<T> {
+    pub fn evcxr_display(&self) {
+        let mut html = String::new();
+        html.push_str("<table>");
+        for r in 0..(self.values.len() / self.row_size) {
+            html.push_str("<tr>");
+            for c in 0..self.row_size {
+                html.push_str("<td>");
+                html.push_str(&format!("{:?}", self.values[r * self.row_size + c]));
+                html.push_str("</td>");
+            }
+            html.push_str("</tr>");            
+        }
+        html.push_str("</table>");
+        println!("EVCXR_BEGIN_CONTENT text/html\n{}\nEVCXR_END_CONTENT", html);
+    }
+}
+```
 
 
-```scala
-(begin
- (define (factorial n)
-  (define (iter product counter)
-    (if (> counter n)
-        product
-        (iter (* counter product)
-              (+ counter 1))))
-  (iter 1 1))
- (factorial 10)
- )
+```Rust
+let m = Matrix {values: vec![1,2,3,4,5,6,7,8,9], row_size: 3};
+m
 ```
 
 
 
 
-    3628800
+<table><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr><tr><td>7</td><td>8</td><td>9</td></tr></table>
 
 
 
+### Javascript(jp-babel)
 
-```scala
-(begin
-  (define fib
-    (lambda (n)
-      (cond
-        ((= n 0) 1)
-        ((= n 1) 1)
-        (else(+ (fib (- n 1))
-                 (fib (- n 2))
-               )
-         )
-       )
-     )    
-   )
-   (fib 5)
- )
+### 安装kernel
+
+```shell
+sudo apt-get install nodejs-legacy npm ipython ipython-notebook
+sudo npm install -g jp-babel
+```
+#### 安装kernel
+
+```shell
+jp-babel-install
+jp-babel-notebook
+```
+
+#### 测试下
+切换Kernel到JavaScript(Node.js)
+
+
+```Rust
+var Animal = {
+    createNew: function(){
+        var animal = {}
+        animal.sleep = function(){
+          return "Zzzzz"
+        }
+        return animal
+      }
+}
+
+var Dog = {
+    createNew: function(name){
+        var dog = Animal.createNew()//继承
+        dog.name = name
+        dog.makeSound = function(){
+            return "wangwang"
+        }
+        return dog
+    }
+}
+a=Dog.createNew("doggy")
+a.makeSound()
 ```
 
 
 
 
-    8
+    'wangwang'
 
 
+
+### R
+
+似乎是很受数据科学家由其统计出身的人欢迎的一种语言.但是语法别扭,个人不喜欢,但是还是得学习
+
+#### 安装依赖
+
++ R
+
+[下载新版(3.22)R语言安装包](http://mirror.bjtu.edu.cn/cran/bin/macosx/R-3.2.2.pkg)
+
+然后双击安装
+
+#### 安装kernel
+
+```R
+install.packages(c('rzmq','repr','IRkernel','IRdisplay'),
+                 repos = c('http://irkernel.github.io/', getOption('repos')))
+IRkernel::installspec()
+```
+
+#### 测试下
+
+写个身高的简单统计计算吧:
+
+先安装`sca`包:
+```R
+> install.packages("sca")
+```
+切换Kernel到R:
+
+
+```Rust
+library(sca)
+height=c(1.75,1.82,1.78,1.93,1.77)
+weight=c(69,80,78,96,65)
+age=c(19,21,20,26,17)
+group_A=data.frame(height,weight,age)
+print(group_A)
+
+sum_h=sum(group_A$height)#身高求和
+cat("身高和:",sum_h,"\n")
+cat("分布:\n")
+cat(percent(group_A$height/sum_h),"\n")
+cat("身高均值",mean(group_A$height),"\n")
+sum_w=sum(group_A$weight)#体重求和
+cat("体重和:",sum_w,"\n")
+cat("分布:\n")
+cat(percent(group_A$weight/sum_w),"\n")
+cat("体重均值",mean(group_A$weight),"\n")
+```
+
+      height weight age
+    1   1.75     69  19
+    2   1.82     80  21
+    3   1.78     78  20
+    4   1.93     96  26
+    5   1.77     65  17
+    身高和: 9.05 
+    分布:
+    19 % 20 % 20 % 21 % 20 % 
+    身高均值 1.81 
+    体重和: 388 
+    分布:
+    18 % 21 % 20 % 25 % 17 % 
+    体重均值 77.6 
+
+
+### Scala
+
+Scala应该是后起语言中的新星了,同时支持面向对象编程和函数式编程的特性让它分外耀眼,而拥有类型推断又让它显得十分简洁优雅.
+它与Java间的联系又让它因为有衬托对比而显得格外讨喜.
+
+#### 安装依赖
+自然要安装scala了
+
+    brew install scala
+
+留意安装的是什么版本
+
+#### 安装kernel
+虽然列表中推荐的是iscala 但还有一个更加简单的方式--[jupyter-scala](https://github.com/alexarchambault/jupyter-scala)**
+
+这个方法就是简单无脑的下载下来然后运行脚本
+
++ 2.10版本的scala[下载这个](https://oss.sonatype.org/content/repositories/snapshots/com/github/alexarchambault/jupyter/jupyter-scala-cli_2.10.5/0.2.0-SNAPSHOT/jupyter-scala_2.10.5-0.2.0-SNAPSHOT.zip)
+2.11版本的[下载这个](https://oss.sonatype.org/content/repositories/snapshots/com/github/alexarchambault/jupyter/jupyter-scala-cli_2.11.6/0.2.0-SNAPSHOT/jupyter-scala_2.11.6-0.2.0-SNAPSHOT.zip)
+
++ 解压到一个安全的位置然后运行其中`bin`文件夹下的的`jupyter-scala`脚本自动完成安装
+
++ 用
+```bash
+ipython kernelspec list
+```
+查看是否有`scala211`或者`scala210`这样的输出,有的话之后运行
+```bash
+ipython console --kernel scala211
+```
+这样再用jupyter notebook进入就能找到Scala 2.11了
+
+当然这样如果以后scala升级了那就无法使用最新版本了,解决方法就是自己本地编译
+
+
+
+#### 测试下
+
+写个简单的尾递归求阶乘
+
+切换Kernel到Scala 2.11
+
+
+
+```Rust
+def factorial(n:Int):Int = {
+    if(n >0) n * factorial(n-1) else 1
+}
+```
+
+
+    defined [32mfunction [36mfactorial[0m
+
+
+
+```Rust
+factorial(5)
+```
+
+
+    [36mres1[0m: [32mInt[0m = [32m120[0m
+
+
+学习scala可以去[这里](http://twitter.github.io/scala_school/zh_cn/)
 
 ## 一些技巧
 
@@ -744,8 +875,3 @@ r.area()
 
 + 尽量不要让jupyter打印循环或者递归,如果出错可能会卡死,下次也打不开,处理方法是用文本编辑器打开`ipynb`文件,直接删除对应的cell内容和打印内容
 
-
-
-```scala
-
-```
