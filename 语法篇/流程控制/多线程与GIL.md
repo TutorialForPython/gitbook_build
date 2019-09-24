@@ -732,6 +732,87 @@ c1.start()
 
 Queue是线程安全的,而且支持in操作,因此用它的时候不用考虑锁的问题
 
+## 使用Unix信号
+
+标准库`signal`提供了操作Unix信号的方法.需要注意signal模块主要是针对Unix平台(linux,osx).Windows上的Python不能发挥signal模块的功能.
+
+常见的信号可以查看本章的结语部分.
+
+Python信号处理程序总是在主线程中执行.这意味着信号不能用作线程间通信的手段.同时也只允许主线程设置新的信号处理程序.
+
+### 常用信号处理函数
+
++ 设置发送SIGALRM信号的定时器
+
+`signal.alarm(time)`可以设置一个发送`SIGALRM`信号的定时器,在time秒后就会发送这个信号量到进程,在不做处理的情况下进程会退出
+
+
++ 使用`signal.pasue`阻塞函数
+
+`signal.pasue`会让主线程暂停以等待信号,接收到信号后使进程停止
+
++ `signal.signal(sig,handler)`用于注册收到信号后的处理函数
+
+注意handler函数有两个参数--信号number和帧对象
+
+
+下面这个例子我们演示了监听信号的过程,无论是等待10s还是使用`ctrl+C`都可以中断阻塞使程序结束.
+
+
+```python
+%%writefile src/signal_pasue.py
+import signal
+signal.signal(signal.SIGALRM,lambda sig,frame:print("闹钟!"))
+signal.signal(signal.SIGINT,lambda sig,frame:print("ctrl+C!"))
+signal.alarm(10)
+print("开始等待信号")
+signal.pause()
+print("等待结束")
+
+```
+
+    Overwriting src/signal_pasue.py
+
+
+### 多线程中使用信号
+
+
++ `signal.sigwait(sigset)`用于在子线程中等待`sigset`中定义的多个信号之一,一旦受到信号就取消阻塞向下走
++ `signal.pthread_kill(thread_id, signal.SIGCONT)`用于在主线程中发送消息到子线程.thread_id可以通过运行中的子线程的`ident`属性获得.
+
+下面的例子演示了主线程向子线程发送信号的过程
+
+
+```python
+%%writefile src/signal_multithread.py
+import threading
+import random
+import time
+import signal
+
+def worker(i):
+    print(f"worker {i} waiting for SIGCONT")
+    signal.sigwait({signal.SIGCONT})
+    print(f"end worker thread {i}")
+
+
+workers = {}
+for i in range(5):
+    t = threading.Thread(target=worker, args=(i,))
+    t.start()
+    workers[t.ident] = t
+
+time.sleep(1)
+chose = random.choice(list(workers.keys()))
+print(f"send to tid {chose}")
+signal.pthread_kill(chose, signal.SIGCONT)
+print("closed")
+
+```
+
+    Overwriting src/signal_multithread.py
+
+
 ## 线程变协程
 
 在Python3.4之前python没有原生的协程那个时候有一个神级的协程库[gevent](http://www.gevent.org/contents.html)它可以通过[monkey patch](http://blog.hszofficial.site/TutorialForPython/%E8%AF%AD%E6%B3%95%E7%AF%87/%E5%85%83%E7%BC%96%E7%A8%8B/%E7%8C%B4%E5%AD%90%E8%A1%A5%E4%B8%81%E5%92%8C%E7%83%AD%E6%9B%B4%E6%96%B0.html)将标准库替换从而实现线程变协程,替换的库在[这个文档中](http://www.gevent.org/api/gevent.monkey.html#gevent.monkey.patch_all)有汇总.gevent至今依然被广泛使用,也是最推荐的协程使用方式之一.
